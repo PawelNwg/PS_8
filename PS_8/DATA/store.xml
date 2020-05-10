@@ -1,10 +1,10 @@
 <store>
-  <product id="2">
-    <name>Piłka nożna</name>
-    <price>35,99</price>
-  </product>
   <product id="3">
     <name>przyklad</name>
     <price>121</price>
+  </product>
+  <product id="4">
+    <name>nowy</name>
+    <price>1111</price>
   </product>
 </store>

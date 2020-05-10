@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +25,21 @@ namespace PS_8
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAuthentication("CookieAuthentication")
+            .AddCookie("CookieAuthentication", config =>
+            {
+                config.Cookie.HttpOnly = true;
+                config.Cookie.SecurePolicy = CookieSecurePolicy.None;
+                config.Cookie.Name = "UserLoginCookie";
+                config.LoginPath = "/Login/UserLogin";
+                config.Cookie.SameSite = SameSiteMode.Strict;
+            });
+            services.AddRazorPages(options => {
+                options.Conventions.AuthorizePage("/Edit");
+            });
+            services.AddRazorPages(options => {
+                options.Conventions.AuthorizePage("/Delete");
+            });
             services.AddRazorPages();
             services.AddScoped<IProductDB,ProductXmlDB>();
 
@@ -47,7 +63,8 @@ namespace PS_8
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCookiePolicy();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
