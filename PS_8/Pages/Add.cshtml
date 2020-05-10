@@ -1,0 +1,35 @@
+﻿@page
+@model PS_8.AddModel
+@{
+    ViewData["Title"] = "Add";
+}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<h2>Nowy produkt</h2>
+<br />
+<br />
+<div class="container">
+    <form class="form-horizontal" method="post">
+        <div class="form-group">
+            <label asp-for="newProduct.name" class="control-label col-sm2"></label>
+            <div class="col-sm-6">
+                <input asp-for="newProduct.name" class="form-control">
+                <span asp-validation-for="newProduct.name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="newProduct.price" class="control-label col-sm2"></label>
+            <div class="col-sm-6">
+                <input asp-for="newProduct.price" class="form-control">
+                <span asp-validation-for="newProduct.price" class="text-danger"></span>
+            </div>
+        </div>     
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button class="btn btn btn-primary">Zatwierdź</button>
+            </div>
+        </div>
+    </form>
+</div>
